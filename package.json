@@ -1,5 +1,5 @@
 {
-  "name": "@pharos/lightkeeper",
+  "name": "lightkeeper",
   "version": "0.0.1",
   "description": "Pharos data send script for Web.",
   "main": "lib/pharos.js",
