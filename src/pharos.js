@@ -8,7 +8,10 @@ module.exports = class Pharos {
     this.site_id = site_id;
     this.host = host;
     this[INFO] = {};
-    this.add(performance());
+
+    global.addEventListener('load', () => {
+      this.add(performance());
+    });
   }
 
   monitor(info) {
