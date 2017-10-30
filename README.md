@@ -45,21 +45,49 @@ pharos.monitor();
 
 Allow develops add customized performance data. And the **val** must be a **Number**, otherwise, it will failed. And return **true** if added successfully. 
 
+```js
+pharos.add('render', 300);
+
+pharos.add({
+  render: 300,
+  footer: 58
+});
+```
 ### pharos.delete(infoKeys)
 
 Remove a group of keys from the performance data. The type of **infoKeys** is **Array**. And return **true** if deleted successfully.
 
+```js
+pharos.delete('render');
+```
 ### pharos.search(key)
 
 Return the value of the specified parameter from the performance data.
+
+```js
+pharos.search('footer');
+```
 
 ### pharos.time(name)
 
 Work with pharos.timeEnd. To get a duration in milliseconds. pharos.time starts the time.
 
+```js
+pharos.time('fib_time');
+fib(20);
+pharos.timeEnd('fib_time');
+//fib_time: 0.007080078125ms
+```
 ### pharos.timeEnd(name)
 
 pharos.timeEnd stops the timer and return the duration.
+
+```js
+pharos.time('fib_time');
+fib(20);
+pharos.timeEnd('fib_time');
+//fib_time: 0.007080078125ms
+```
 
 ## Contributing
 
