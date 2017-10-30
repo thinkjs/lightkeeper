@@ -1,6 +1,8 @@
 # lightkeeper
 
 [![npm](https://img.shields.io/npm/v/lightkeeper.svg?style=flat-square)]()
+[![Travis](https://img.shields.io/travis/thinkjs/lightkeeper.svg?style=flat-square)]()
+[![Coveralls](https://img.shields.io/coveralls/thinkjs/lightkeeper/master.svg?style=flat-square)]()
 [![David](https://img.shields.io/david/thinkjs/lightkeeper.svg?style=flat-square)]()
 
 pharos data send script for web. Support UMD, AMD, CommonJS in Browser.
