@@ -43,13 +43,23 @@ pharos.monitor();
 
 ### pharos.add(key, val)
 
+Allow develops add customized performance data. And the **val** must be a **Number**, otherwise, it will failed.
+
+### pharos.delete(infoKeys)
+
+Remove a group of keys from the performance data. The type of **infoKeys** is **Array**.
+
+### pharos.search(key)
+
+Return the value of the specified parameter from the performance data.
+
 ### pharos.time(name)
+
+Work with pharos.timeEnd. To get a duration in milliseconds. pharos.time starts the time.
 
 ### pharos.timeEnd(name)
 
-### pharos.delete(key, val)
-
-### pharos.search(key)
+pharos.timeEnd stops the timer and return the duration.
 
 ## Contributing
 
