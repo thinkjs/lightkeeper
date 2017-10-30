@@ -45,7 +45,7 @@ module.exports = class Pharos {
 
   add(key, val) {
     let data = key;
-    if (val) {
+    if (util.isNumber(val)) {
       data = {[key]: val};
     }
 
