@@ -1,0 +1,10 @@
+{
+  "extends": "think",
+  "rules": {
+    "camelcase": "off"
+  },
+  "globals": {
+    "document": true,
+    "Image": true
+  }
+}
