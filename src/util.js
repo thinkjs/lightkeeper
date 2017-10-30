@@ -1,9 +1,12 @@
 exports.isNumber = function(arg) {
-  return typeof arg === 'number';
+  return !isNaN(arg) && typeof arg === 'number';
 };
 
 exports.isEmpty = function(obj) {
-  return obj === undefined || JSON.stringify(obj) === JSON.stringify({});
+  if (typeof obj === 'object') {
+    return JSON.stringify(obj) === '{}';
+  }
+  return !obj;
 };
 
 exports.build_query = function(obj) {
