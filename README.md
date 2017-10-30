@@ -38,3 +38,23 @@ const host = 'pharos.eming.li';
 const pharos = new Pharos(site_id, host);
 pharos.monitor();
 ```
+
+## API
+
+### pharos.add(key, val)
+
+### pharos.time(name)
+
+### pharos.timeEnd(name)
+
+### pharos.delete(key, val)
+
+### pharos.search(key)
+
+## Contributing
+
+Contributions welecome!
+
+## License
+
+[MIT](https://github.com/thinkjs/lightkeeper/blob/master/LICENSE)
