@@ -12,7 +12,7 @@ module.exports = class Pharos {
     global.addEventListener('load', () => {
       setTimeout(() => {
         this.add(performance());
-      })
+      });
     });
   }
 
