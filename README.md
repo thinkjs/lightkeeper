@@ -43,11 +43,11 @@ pharos.monitor();
 
 ### pharos.add(key, val)
 
-Allow develops add customized performance data. And the **val** must be a **Number**, otherwise, it will failed.
+Allow develops add customized performance data. And the **val** must be a **Number**, otherwise, it will failed. And return **true** if added successfully. 
 
 ### pharos.delete(infoKeys)
 
-Remove a group of keys from the performance data. The type of **infoKeys** is **Array**.
+Remove a group of keys from the performance data. The type of **infoKeys** is **Array**. And return **true** if deleted successfully.
 
 ### pharos.search(key)
 
