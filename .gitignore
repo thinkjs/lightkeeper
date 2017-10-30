@@ -60,5 +60,4 @@ typings/
 
 lib/
 dist/
-test/
 package-lock.json
