@@ -1,6 +1,6 @@
 {
   "name": "lightkeeper",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Pharos data send script for Web.",
   "main": "lib/pharos.js",
   "scripts": {
