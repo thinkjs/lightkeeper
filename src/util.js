@@ -32,11 +32,9 @@ exports.getPerformance = function() {
 exports.sendLog = function(url) {
   if (!url) return;
 
-  global.sadLog = {};
-  const log = `log_${Date.now()}`;
-  global.sadLog[log] = new Image();
-  global.sadLog[log].onload = global.sadLog[log].onerror = () => {
-    delete global.sadLog[log];
+  global.sadLog = new Image();
+  global.sadLog.onload = global.sadLog.onerror = () => {
+    delete global.sadLog;
   };
   global.sadLog.src = url;
 };

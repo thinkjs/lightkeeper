@@ -10,7 +10,9 @@ module.exports = class Pharos {
     this[INFO] = {};
 
     global.addEventListener('load', () => {
-      this.add(performance());
+      setTimeout(() => {
+        this.add(performance());
+      })
     });
   }
 
@@ -53,7 +55,6 @@ module.exports = class Pharos {
       }
       this[INFO][k] = data[k];
     }
-
     return true;
   }
 
