@@ -59,10 +59,12 @@ pharos.add({
 ```
 ### pharos.delete(infoKeys)
 
-Remove a group of keys from the performance data. The type of **infoKeys** is **Array**. And return **true** if deleted successfully.
+Remove one or more keys from the performance data. And return **true** if deleted successfully.
 
 ```js
 pharos.delete('render');
+
+pharos.delete('loadPage', 'ttfb', 'lookupDomain');
 ```
 ### pharos.search(key)
 
