@@ -5,10 +5,11 @@
   "main": "lib/pharos.js",
   "scripts": {
     "webpack": "webpack --progress --color",
+    "webpack:production": "npm run webpack -- -p",
     "compile": "babel --presets es2015 src/ --out-dir lib/",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
-    "prepublish": "npm run webpack && npm run compile"
+    "prepublish": "npm run webpack && npm run webpack:production && npm run compile"
   },
   "repository": {
     "type": "git",
