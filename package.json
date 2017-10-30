@@ -1,11 +1,11 @@
 {
   "name": "lightkeeper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Pharos data send script for Web.",
   "main": "lib/pharos.js",
   "scripts": {
     "webpack": "webpack --progress --color",
-    "webpack:production": "npm run webpack -- -p",
+    "webpack:production": "webpack --progress --color -p",
     "compile": "babel --presets es2015 src/ --out-dir lib/",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
