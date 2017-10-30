@@ -35,7 +35,7 @@ window.addEventListener('load', function() {
 We also support commonjs require in webpack or rollup like:
 
 ```js
-const Pharos = require('@pharos/lightkeeper');
+const Pharos = require('lightkeeper');
 const site_id = 1;
 const host = 'pharos.eming.li';
 
