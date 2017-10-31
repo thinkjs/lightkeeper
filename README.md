@@ -10,7 +10,7 @@ pharos data send script for web. Support UMD, AMD, CommonJS in Browser.
 ## Installation
 
 ```sh
-npm install @pharos/lightkeeper --save
+npm install lightkeeper --save-dev
 ```
 
 ## How To Use
@@ -21,7 +21,7 @@ You can use with `script` tag easily like:
 
 ```html
 <script 
-  src="https://unpkg.com/@pharos/lightkeeper/dist/pharos.js"
+  src="https://unpkg.com/lightkeeper/dist/pharos.min.js"
   data-siteid="1"
   data-host="pharos.eming.li"  
 ></script>
@@ -73,7 +73,10 @@ pharos.delete('loadPage', 'ttfb', 'lookupDomain');
 Return the value of the specified parameter from the performance data.
 
 ```js
+pharos.add('footer', 100);
+
 pharos.search('footer');
+//100
 ```
 
 ### pharos.time(name)
@@ -85,6 +88,8 @@ pharos.time('fib_time');
 fib(20);
 pharos.timeEnd('fib_time');
 //fib_time: 0.007080078125ms
+pharos.search('fib_time');
+//0.007080078125
 ```
 ### pharos.timeEnd(name)
 
@@ -95,6 +100,8 @@ pharos.time('fib_time');
 fib(20);
 pharos.timeEnd('fib_time');
 //fib_time: 0.007080078125ms
+pharos.search('fib_time');
+//0.007080078125
 ```
 
 ## Contributing
