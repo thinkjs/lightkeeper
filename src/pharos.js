@@ -59,8 +59,6 @@ module.exports = class Pharos {
   }
 
   delete(...infoKeys) {
-    if (!this[INFO]) return;
-
     for (const k of infoKeys) {
       delete this[INFO][k];
     }
@@ -68,7 +66,6 @@ module.exports = class Pharos {
   }
 
   search(key) {
-    if (!this[INFO]) return;
     return this[INFO][key];
   }
 };

@@ -82,7 +82,7 @@ test('pharos add', t => {
 });
 
 test('pharos delete', t => {
-  t.plan(6);
+  t.plan(8);
   global.addEventListener = new Function();
   const pharos = new Pharos();
   pharos.add({
@@ -95,9 +95,9 @@ test('pharos delete', t => {
   t.is(pharos.search('aaa'), 1);
   t.is(pharos.search('bbb'), 2);
   t.is(pharos.search('ccc'), 3);
-  pharos.delete('aaa');
+  t.true(pharos.delete('aaa'));
   t.is(pharos.search('aaa'), undefined);
-  pharos.delete('bbb', 'ccc');
+  t.true(pharos.delete('bbb', 'ccc'));
   t.is(pharos.search('bbb'), undefined);
   t.is(pharos.search('ccc'), undefined);
 });
