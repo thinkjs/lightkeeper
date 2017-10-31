@@ -59,8 +59,8 @@ module.exports = class Pharos {
   }
 
   delete(...infoKeys) {
-    for (const k of infoKeys) {
-      delete this[INFO][k];
+    for (let i = 0; i < infoKeys.length; i++) {
+      delete this[INFO][infoKeys[i]];
     }
     return true;
   }
