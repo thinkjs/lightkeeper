@@ -1,6 +1,8 @@
 const {test} = require('ava');
 const mock = require('mock-require');
 const Pharos = require('../src/pharos');
+
+global.location = {protocol: 'https:'};
 const timeout = (cb, t) => new Promise(resolve => {
   setTimeout(function() {
     cb();
@@ -152,15 +154,15 @@ test('pharos monitor', t => {
     },
     sendLog(url) {
       if (i === 0) {
-        t.is(url, '//host_test.com/api/disp?first');
+        t.is(url, 'http://host_test.com/api/disp?first');
       } else {
-        t.is(url, '//pharos.eming.li/api/disp?second');
+        t.is(url, 'https://pharos.eming.li/api/disp?second');
       }
     }
   });
 
   const Pharos = mock.reRequire('../src/pharos');
-  const pharos = new Pharos('site_id', 'host_test.com');
+  const pharos = new Pharos('site_id', 'http://host_test.com');
   pharos.add('aaa', 111);
   pharos.monitor();
 

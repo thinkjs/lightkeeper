@@ -4,6 +4,7 @@
     "camelcase": "off"
   },
   "globals": {
+    "location": true,
     "document": true,
     "Image": true
   }

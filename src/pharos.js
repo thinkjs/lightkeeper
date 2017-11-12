@@ -17,7 +17,12 @@ module.exports = class Pharos {
   }
 
   monitor(info) {
-    const baseUrl = `//${this.host}/api/disp?`;
+    let host = this.host;
+    if (!/^http/i.test(host)) {
+      host = location.protocol + '//' + host;
+    }
+
+    const baseUrl = `${host}/api/disp?`;
     const params = {
       site_id: this.site_id,
       info: util.isEmpty(info) ? this[INFO] : info,
