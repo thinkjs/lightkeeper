@@ -23,7 +23,7 @@ You can use with `script` tag easily like:
 <script 
   src="https://unpkg.com/lightkeeper/dist/pharos.min.js"
   data-siteid="1"
-  data-host="pharos.eming.li"  
+  data-host="//pharos.eming.li"  
 ></script>
 <script type="text/javascript">
 window.addEventListener('load', function() {
@@ -39,7 +39,7 @@ We also support commonjs require in webpack or rollup like:
 ```js
 const Pharos = require('lightkeeper');
 const site_id = 1;
-const host = 'pharos.eming.li';
+const host = 'https://pharos.eming.li';
 
 const pharos = new Pharos(site_id, host);
 pharos.monitor();
