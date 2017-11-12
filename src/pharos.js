@@ -18,7 +18,7 @@ module.exports = class Pharos {
 
   monitor(info) {
     let host = this.host;
-    if (!/^http/i.test(host)) {
+    if (!/^(http|\/\/)/i.test(host)) {
       host = location.protocol + '//' + host;
     }
 
