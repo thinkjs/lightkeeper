@@ -2,21 +2,30 @@ const util = require('./util');
 const performance = require('./performance');
 
 const INFO = Symbol('info');
+const PERF = Symbol('addPerf');
+
 const TIME_POOL = {};
 module.exports = class Pharos {
   constructor(site_id, host) {
     this.site_id = site_id;
     this.host = host;
     this[INFO] = {};
+    this[PERF] = this.addPerf();
+  }
 
-    global.addEventListener('load', () => {
-      setTimeout(() => {
-        this.add(performance());
-      });
-    });
+  addPerf() {
+    return new Promise((resolve) =>
+      global.addEventListener('load', () =>
+        setTimeout(() => this.add(performance()) && resolve())
+      )
+    );
   }
 
   monitor(info) {
+    return this[PERF].then(() => this.send(info));
+  }
+
+  send(info) {
     let host = this.host;
     if (!/^(http|\/\/)/i.test(host)) {
       host = location.protocol + '//' + host;

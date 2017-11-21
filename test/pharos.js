@@ -10,7 +10,7 @@ const timeout = (cb, t) => new Promise(resolve => {
   }, t);
 });
 
-test('pharos instance with site_id and host', t => {
+test('pharos instance with site_id and host', async t => {
   global.addEventListener = (event, cb) => {
     t.is(event, 'load');
     cb();
@@ -42,6 +42,7 @@ test('pharos in stance add performance default', async t => {
     t.deepEqual(pharos.search('a'), 1);
   });
   delete global.addEventListener;
+  mock.stopAll();
 });
 
 test('pharos time', async t => {
@@ -54,14 +55,14 @@ test('pharos time', async t => {
   }, 300);
 });
 
-test('pharos timeEnd', t => {
+test('pharos timeEnd', async t => {
   global.addEventListener = new Function();
   const pharos = new Pharos();
   pharos.timeEnd('bbb');
   t.is(pharos.search('bbb'), 0);
 });
 
-test('pharos add', t => {
+test('pharos add', async t => {
   const cases = [
     [undefined, undefined],
     [1, 1],
@@ -83,7 +84,7 @@ test('pharos add', t => {
   });
 });
 
-test('pharos delete', t => {
+test('pharos delete', async t => {
   t.plan(8);
   global.addEventListener = new Function();
   const pharos = new Pharos();
@@ -104,7 +105,7 @@ test('pharos delete', t => {
   t.is(pharos.search('ccc'), undefined);
 });
 
-test('pharos search', t => {
+test('pharos search', async t => {
   t.plan(2);
   global.addEventListener = new Function();
   const pharos = new Pharos();
@@ -116,10 +117,11 @@ test('pharos search', t => {
   t.is(pharos.search('bbb'), undefined);
 });
 
-test('pharos monitor', t => {
+test('pharos monitor', async t => {
   t.plan(4);
+  mock.stopAll();
   global.Image = new Function();
-  global.addEventListener = new Function();
+  global.addEventListener = (event, cb) => cb();
   global.screen = {width: 200, height: 200};
   let i = 0;
 
@@ -127,8 +129,8 @@ test('pharos monitor', t => {
     isEmpty() {
       return i === 0;
     },
-    isNumber() {
-      return true;
+    isNumber(args) {
+      return typeof args === 'number';
     },
     build_query(params) {
       if (i === 0) {
@@ -164,10 +166,11 @@ test('pharos monitor', t => {
   const Pharos = mock.reRequire('../src/pharos');
   const pharos = new Pharos('site_id', 'http://host_test.com');
   pharos.add('aaa', 111);
-  pharos.monitor();
+  await pharos.monitor();
 
   i++;
   pharos.site_id = 3;
   pharos.host = 'pharos.eming.li';
-  pharos.monitor({a: 1, b: 2});
+  await pharos.monitor({a: 1, b: 2});
+  mock.stopAll();
 });

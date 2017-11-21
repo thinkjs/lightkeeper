@@ -47,6 +47,10 @@ pharos.monitor();
 
 ## API
 
+### pharos.monitor()
+
+Send performance to server, return Promise.
+
 ### pharos.add(key, val)
 
 Allow develops add customized performance data. And the **val** must be a **Number**, otherwise, it will failed. And return **true** if added successfully. 
