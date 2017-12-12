@@ -1,8 +1,8 @@
 const util = require('./util');
 const performance = require('./performance');
 
-const INFO = Symbol('info');
-const PERF = Symbol('addPerf');
+const INFO = 'info';
+const PERF = 'addPerfData';
 
 const TIME_POOL = {};
 module.exports = class Pharos {
