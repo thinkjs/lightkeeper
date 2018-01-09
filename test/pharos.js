@@ -105,6 +105,20 @@ test('pharos delete', async t => {
   t.is(pharos.search('ccc'), undefined);
 });
 
+test('pharos clear', async t => {
+  t.plan(2);
+
+  global.addEventListener = new Function();
+  const pharos = new Pharos();
+  pharos.add({
+    aaa: 1,
+    bbb: 2
+  });
+  pharos.clear();
+  t.deepEqual(pharos.search('aaa'), undefined);
+  t.deepEqual(pharos.search('bbb'), undefined);
+});
+
 test('pharos search', async t => {
   t.plan(2);
   global.addEventListener = new Function();
