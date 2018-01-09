@@ -14,10 +14,13 @@ module.exports = class Pharos {
   }
 
   addPerf() {
-    return new Promise((resolve) =>
-      global.addEventListener('load', () =>
-        setTimeout(() => this.add(performance()) && resolve())
-      )
+    return new Promise(resolve =>
+      global.addEventListener('load', () => setTimeout(() => {
+        this.add(performance());
+        resolve();
+
+        this[PERF] = Promise.resolve();
+      }))
     );
   }
 
@@ -77,6 +80,15 @@ module.exports = class Pharos {
       delete this[INFO][infoKeys[i]];
     }
     return true;
+  }
+
+  clear() {
+    const data = {};
+    for (const k in this[INFO]) {
+      data[k] = this[INFO][k];
+      this.delete(k);
+    }
+    return data;
   }
 
   search(key) {
