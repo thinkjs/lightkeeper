@@ -72,6 +72,17 @@ pharos.delete('render');
 
 pharos.delete('loadPage', 'ttfb', 'lookupDomain');
 ```
+
+### pharos.clear()
+
+Remote all keys from the performance data. And return old data if clear successfully.
+
+```js
+const old = pharos.clear();
+
+console.log(old);
+//{loadPage: 0, ttfb: 0, lookupDomain: 0}
+```
 ### pharos.search(key)
 
 Return the value of the specified parameter from the performance data.
