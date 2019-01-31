@@ -1,6 +1,6 @@
-const {test} = require('ava');
+const { test } = require('ava');
 test('main normal', t => {
-  t.plan(7);
+  t.plan(8);
   global.document = {
     querySelector(selector) {
       t.is(selector, 'script[data-siteid][data-host]');
@@ -18,7 +18,7 @@ test('main normal', t => {
     }
   };
   global.addEventListener = (event, cb) => {
-    t.is(event, 'load');
+    t.true(['load', 'error'].includes(event));
     cb();
   };
   const main = require('../src/main');

@@ -1,8 +1,8 @@
-const {test} = require('ava');
+const { test } = require('ava');
 const mock = require('mock-require');
 const Pharos = require('../src/pharos');
 
-global.location = {protocol: 'https:'};
+global.location = { protocol: 'https:' };
 const timeout = (cb, t) => new Promise(resolve => {
   setTimeout(function() {
     cb();
@@ -12,11 +12,11 @@ const timeout = (cb, t) => new Promise(resolve => {
 
 test('pharos instance with site_id and host', async t => {
   global.addEventListener = (event, cb) => {
-    t.is(event, 'load');
+    t.true(['load', 'error'].includes(event));
     cb();
   };
 
-  t.plan(6);
+  t.plan(8);
   let pharos = new Pharos();
   t.is(pharos.site_id, undefined);
   t.is(pharos.host, undefined);
@@ -27,13 +27,13 @@ test('pharos instance with site_id and host', async t => {
 });
 
 test('pharos in stance add performance default', async t => {
-  t.plan(2);
+  t.plan(3);
   mock('../src/performance', function() {
-    return {a: 1};
+    return { a: 1 };
   });
   const Pharos = mock.reRequire('../src/pharos');
   global.addEventListener = (event, cb) => {
-    t.is(event, 'load');
+    t.true(['load', 'error'].includes(event));
     cb();
   };
 
@@ -66,8 +66,8 @@ test('pharos add', async t => {
   const cases = [
     [undefined, undefined],
     [1, 1],
-    [{aaa: '3'}, 1],
-    [{aaa: 33}, 33]
+    [{ aaa: '3' }, 1],
+    [{ aaa: 33 }, 33]
   ];
   t.plan(cases.length);
 
@@ -136,7 +136,7 @@ test('pharos monitor', async t => {
   mock.stopAll();
   global.Image = new Function();
   global.addEventListener = (event, cb) => cb();
-  global.screen = {width: 200, height: 200};
+  global.screen = { width: 200, height: 200 };
   let i = 0;
 
   mock('../src/util', {
@@ -185,6 +185,6 @@ test('pharos monitor', async t => {
   i++;
   pharos.site_id = 3;
   pharos.host = 'pharos.eming.li';
-  await pharos.monitor({a: 1, b: 2});
+  await pharos.monitor({ a: 1, b: 2 });
   mock.stopAll();
 });

@@ -6,11 +6,30 @@ const PERF = 'addPerfData';
 
 const TIME_POOL = {};
 module.exports = class Pharos {
-  constructor(site_id, host) {
+  constructor(site_id, host, opt = {}) {
     this.site_id = site_id;
     this.host = host;
     this[INFO] = {};
     this[PERF] = this.addPerf();
+
+    this.listenError(opt);
+  }
+
+  listenError({ onError }) {
+    if (!global.addEventListener) {
+      return;
+    }
+
+    global.addEventListener('error', err => {
+      if (!err) return;
+
+      let message = (err.error && err.error.stack) || err.message;
+      if (typeof onError === 'function') {
+        message = onError(err);
+      }
+      if (!message) return;
+      this.send(message);
+    });
   }
 
   addPerf() {
@@ -36,10 +55,15 @@ module.exports = class Pharos {
 
     const baseUrl = `${host}/api/disp?`;
     const params = {
+      info: {},
       site_id: this.site_id,
-      info: util.isEmpty(info) ? this[INFO] : info,
       screen: global.screen.width + 'x' + global.screen.height
     };
+    if (typeof info === 'string') {
+      params.error = info;
+    } else {
+      params.info = util.isEmpty(info) ? this[INFO] : info;
+    }
     util.sendLog(baseUrl + util.build_query(params));
   }
 
@@ -63,7 +87,7 @@ module.exports = class Pharos {
   add(key, val) {
     let data = key;
     if (util.isNumber(val)) {
-      data = {[key]: val};
+      data = { [key]: val };
     }
 
     for (const k in data) {
