@@ -71,10 +71,11 @@ module.exports = class Pharos {
     }
 
     const baseUrl = `${host}/pharos.gif?`;
-    util.sendLog(baseUrl + util.build_query({
-      site_id: this.site_id,
-      ...info
-    }));
+    const params = { site_id: this.site_id };
+    for (const k in info) {
+      params[k] = info[k];
+    }
+    util.sendLog(baseUrl + util.build_query(params));
 
     this.clear();
   }
