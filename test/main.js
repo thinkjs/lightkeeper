@@ -1,6 +1,13 @@
 const { test } = require('ava');
+
+global.location = { protocol: 'https:' };
+global.screen = {
+  width: 1024,
+  height: 768
+};
+
 test('main normal', t => {
-  t.plan(8);
+  t.plan(9);
   global.document = {
     querySelector(selector) {
       t.is(selector, 'script[data-siteid][data-host]');
@@ -18,7 +25,7 @@ test('main normal', t => {
     }
   };
   global.addEventListener = (event, cb) => {
-    t.true(['load', 'error'].includes(event));
+    t.true(['load', 'error', 'unhandledrejection'].includes(event));
     cb();
   };
   const main = require('../src/main');

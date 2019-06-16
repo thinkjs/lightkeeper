@@ -9,7 +9,9 @@ module.exports = class Pharos {
   constructor(site_id, host, opt = {}) {
     this.site_id = site_id;
     this.host = host;
-    this[INFO] = {};
+    this[INFO] = {
+      screen: global.screen.width + 'x' + global.screen.height
+    };
     this[PERF] = this.addPerf();
 
     this.listenError(opt);
@@ -26,6 +28,21 @@ module.exports = class Pharos {
       let message = (err.error && err.error.stack) || err.message;
       if (typeof onError === 'function') {
         message = onError(err);
+      }
+      if (!message) return;
+      this.send(message);
+    });
+
+    global.addEventListener('unhandledrejection', reject => {
+      if (!reject) return;
+
+      let message = reject.reason;
+      if (message instanceof Error) {
+        message = (message.error && message.error.stack) || message.message;
+      }
+
+      if (typeof onError === 'function') {
+        message = onError(reject);
       }
       if (!message) return;
       this.send(message);
@@ -47,24 +64,19 @@ module.exports = class Pharos {
     return this[PERF].then(() => this.send(info));
   }
 
-  send(info) {
+  send(info = this[INFO]) {
     let host = this.host;
     if (!/^(http|\/\/)/i.test(host)) {
       host = location.protocol + '//' + host;
     }
 
-    const baseUrl = `${host}/api/disp?`;
-    const params = {
-      info: {},
+    const baseUrl = `${host}/pharos.gif?`;
+    util.sendLog(baseUrl + util.build_query({
       site_id: this.site_id,
-      screen: global.screen.width + 'x' + global.screen.height
-    };
-    if (typeof info === 'string') {
-      params.error = info;
-    } else {
-      params.info = util.isEmpty(info) ? this[INFO] : info;
-    }
-    util.sendLog(baseUrl + util.build_query(params));
+      ...info
+    }));
+
+    this.clear();
   }
 
   time(name) {

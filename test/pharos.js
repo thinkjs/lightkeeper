@@ -3,6 +3,10 @@ const mock = require('mock-require');
 const Pharos = require('../src/pharos');
 
 global.location = { protocol: 'https:' };
+global.screen = {
+  width: 1024,
+  height: 768
+};
 const timeout = (cb, t) => new Promise(resolve => {
   setTimeout(function() {
     cb();
@@ -12,11 +16,11 @@ const timeout = (cb, t) => new Promise(resolve => {
 
 test('pharos instance with site_id and host', async t => {
   global.addEventListener = (event, cb) => {
-    t.true(['load', 'error'].includes(event));
+    t.true(['load', 'error', 'unhandledrejection'].includes(event));
     cb();
   };
 
-  t.plan(8);
+  t.plan(10);
   let pharos = new Pharos();
   t.is(pharos.site_id, undefined);
   t.is(pharos.host, undefined);
@@ -27,13 +31,13 @@ test('pharos instance with site_id and host', async t => {
 });
 
 test('pharos in stance add performance default', async t => {
-  t.plan(3);
+  t.plan(4);
   mock('../src/performance', function() {
     return { a: 1 };
   });
   const Pharos = mock.reRequire('../src/pharos');
   global.addEventListener = (event, cb) => {
-    t.true(['load', 'error'].includes(event));
+    t.true(['load', 'error', 'unhandledrejection'].includes(event));
     cb();
   };
 
@@ -150,29 +154,24 @@ test('pharos monitor', async t => {
       if (i === 0) {
         t.deepEqual(params, {
           site_id: 'site_id',
-          info: {
-            aaa: 111
-          },
+          aaa: 111,
           screen: '200x200'
         });
         return 'first';
       } else {
         t.deepEqual(params, {
           site_id: 3,
-          info: {
-            a: 1,
-            b: 2
-          },
-          screen: '200x200'
+          a: 1,
+          b: 2
         });
         return 'second';
       }
     },
     sendLog(url) {
       if (i === 0) {
-        t.is(url, 'http://host_test.com/api/disp?first');
+        t.is(url, 'http://host_test.com/pharos.gif?first');
       } else {
-        t.is(url, 'https://pharos.eming.li/api/disp?second');
+        t.is(url, 'https://pharos.eming.li/pharos.gif?second');
       }
     }
   });
