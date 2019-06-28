@@ -30,7 +30,7 @@ module.exports = class Pharos {
         message = onError(err);
       }
       if (!message) return;
-      this.send(message);
+      this.send({ errmsg: message });
     });
 
     global.addEventListener('unhandledrejection', reject => {
@@ -45,7 +45,7 @@ module.exports = class Pharos {
         message = onError(reject);
       }
       if (!message) return;
-      this.send(message);
+      this.send({ errmsg: message });
     });
   }
 
